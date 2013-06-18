@@ -2,11 +2,11 @@
 
 ## Process this file with automake to produce Makefile.in 
 
-INCLUDES = -I$(top_srcdir)
+INCLUDES = -I$(top_srcdir) -I$(top_srcdir)/daemons
 
 EXTRA_PROGRAMS = smode2 xmode2 irxevent
 bin_PROGRAMS = irw irpty irexec ircat mode2 irsend \
-	lircrcd \
+	lircrcd lirc2xml \
 	@vga_progs@ @x_progs@
 
 AM_CPPFLAGS = @X_CFLAGS@
@@ -24,6 +24,9 @@ ircat_DEPENDENCIES = liblirc_client.la
 ircat_LDADD = liblirc_client.la
 mode2_SOURCES = mode2.c
 irsend_SOURCES = irsend.c
+
+lirc2xml_SOURCES = lirc2xml.c ../daemons/transmit.c
+lirc2xml_LDADD = ../daemons/config_file.o @decodeir_lib@
 
 mode2_LDADD = ../daemons/libhw_module.a @hw_module_libs@
 

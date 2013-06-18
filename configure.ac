@@ -187,6 +187,9 @@ AH_TEMPLATE([DEVDIR],
 AH_TEMPLATE([DYNCODES],
 	[Define to use dynamic IR codes])
 
+AH_TEMPLATE([DECODEIR],
+	[Define to use the DecodeIR library])
+
 AH_TEMPLATE([HAVE_ALSA_SB_RC],	
 	[Define if the ALSA library with SB RC support is installed])
 
@@ -1558,6 +1561,11 @@ AC_ARG_ENABLE(dyncodes,
 [  --enable-dyncodes       use dynamic codes],
 test x${enableval} = xyes && AC_DEFINE(DYNCODES))
 
+AC_ARG_ENABLE(decodeir,
+[  --enable-decodeir       use DecodeIR in XML export],
+test x${enableval} = xyes && AC_DEFINE(DECODEIR)
+decodeir_lib=-lDecodeIR)
+
 AC_ARG_WITH(port,
 [  --with-port=port        specify the port number for the lirc device.],
 port=${withval}
@@ -1682,6 +1690,7 @@ AC_SUBST(receive)
 AC_SUBST(lircd_conf)
 AC_SUBST(lircmd_conf)
 AC_SUBST(maintmode_daemons_extra)
+AC_SUBST(decodeir_lib)
 
 dnl tell the C code what we decided
 AC_DEFINE_UNQUOTED(DEVDIR, "$devdir")
