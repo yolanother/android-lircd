@@ -38,7 +38,7 @@ struct ir_remote *repeat_remote = NULL;
 struct ir_ncode *repeat_code = NULL;
 
 char *progname="lirc2xml";
-const char *configfile = LIRCDCFGFILE;
+const char *configfile = NULL;
 char *outputfilename = NULL;
 char *selected_remote = NULL;
 #ifdef DEBUG
@@ -74,7 +74,11 @@ void parse_config(void)
 {
   FILE *fd;
   
-  fd=fopen(configfile, "r");
+  if (NULL==configfile) {
+    fd = stdin;
+  } else {
+    fd=fopen(configfile, "r");
+  }
   if (fd==NULL) {
     fprintf(stderr, "could not open config file '%s'\n", configfile);
     exit(EXIT_FAILURE);
